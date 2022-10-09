@@ -3,9 +3,16 @@ import requests
 import pandas as pd
 
 # for rabbitmq search Moscow
-#hh_url = 'https://hh.ru/search/vacancy?text=rabbitmq&from=suggest_post&area='
-hh_url = 'https://hh.ru/search/vacancy?text=rabbitmq&salary=&clusters=true&area=1&page='
+
 end_line = '&hhtmFrom=vacancy_search_list'
+hh_url = (
+'https://hh.ru/search/vacancy'
+'?text=rabbitmq&'
+'salary='
+'&clusters='
+'true&area='
+'1&page='
+)
 headers = {"User-Agent": "Mozilla/5.0"}
 
 
