@@ -1,7 +1,10 @@
 import openpyxl as o
 import pandas as pd
 
-wb = o.load_workbook('hh_rabbitmq_moscow_positions.xlsx')
+hh_filename = 'hh_rabbitmq_moscow_positions.xlsx'
+vk_filename = "habr_career__vk_jobs.xlsx"
+
+wb = o.load_workbook(vk_filename)
 work_sheet = wb['Sheet1']
 
 result_entries = []
@@ -15,7 +18,11 @@ for cell in work_sheet['A']:
 
 result_entries = result_entries[1:]  # remove 'name' field
 
-list_of_key_words = ['php', 'devops', 'go', 'mysql', 'python', 'ruby', 'c#', 'kotlin', 'java', 'node', 'full', 'js']
+list_of_key_words = ['php', 'scientist', 'data engineer',
+                     'инженер данных', 'тестир', 'auto',
+                     'авто', 'devops', 'go', 'mysql', 'python',
+                     'c#', 'java', 'node', 'full', 'js', 'ETL', 'etl',
+                     ]
 
 positions = ['senior', 'lead', 'junior', 'middle', 'техлид', 'начинающий', 'главный', 'старший']
 
@@ -40,10 +47,13 @@ def count_positions(entries: list, input_list: list) -> pd.DataFrame:
     return output
 
 
-def dump_to_excel(some_results):
-    some_results.to_excel('hh_rabbitmq_moscow_positions_cleaned_data.xlsx', index=False)
+def dump_to_excel(some_results, title: str):
+    some_results.to_excel(f'{title}.xlsx', index=False)
+
+
+hh_title = "hh_rabbitmq_moscow_positions_cleaned_data"
 
 
 if __name__ == '__main__':
     result_key_words = count_positions(list_of_key_words, result_entries)
-    dump_to_excel(result_key_words)
+    dump_to_excel(result_key_words, "habr__vk_jobs")
